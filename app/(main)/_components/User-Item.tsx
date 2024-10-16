@@ -8,11 +8,10 @@ import {
     AvatarImage
 } from "@/components/ui/avatar";
 
-import { 
+import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
