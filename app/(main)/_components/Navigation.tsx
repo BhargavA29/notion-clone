@@ -4,10 +4,11 @@ import { usePathname } from "next/navigation";
 import { ElementRef, useRef, useState, useEffect, useCallback } from "react";
 import { useMediaQuery } from "usehooks-ts"
 import UserItem from "./User-Item";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Item } from "./Item";
 import { toast } from "sonner";
+import DocumentList from "./Document-List";
 
 
 
@@ -15,7 +16,6 @@ import { toast } from "sonner";
 export const Navigation = () => {
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
-    const documents = useQuery(api.documents.get);
     const create = useMutation(api.documents.create);
 
     const isResizingRef = useRef(false);
@@ -87,7 +87,7 @@ export const Navigation = () => {
             sidebarRef.current.style.width = "0";
             navbarRef.current.style.setProperty("left", "0");
             navbarRef.current.style.setProperty("width", "100%");
-            setTimeout(() =>setIsResetting(false), 300);
+            setTimeout(() => setIsResetting(false), 300);
         }
     };
 
@@ -101,61 +101,57 @@ export const Navigation = () => {
         });
     }
     return (
-            <>
-                <aside ref={sidebarRef} className={cn(
-                    "group/sidebar h-full bg-secondary overflow-y-auto relative flex w-60 flex-col z-[99999]",
-                    isResetting && "transition-all ease-in-out duration-300",
-                    isMobile && "w-0"
-                )}>
-                    <div onClick={collapse} role="button" className={cn("h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition",
-                        isMobile && "opacity-100"
-                    )}
-                    >
-                        <ChevronLeftIcon className="w-6 h-6" />
-                    </div>
-                    <div>
-                        <UserItem />
-                        <Item
-                            label="Search"
-                            icon={Search}
-                            onClick={() => {}}
-                            isSearch
-                        />
-                        <Item
-                            label="Settings"
-                            icon={Settings}
-                            onClick={() => {}}
-                        />
-                        <Item
-                            onClick={handleCreate}
-                            label="New Page"
-                            icon={PlusCircle}
-                        />
-                    </div>
-                    <div className="mt-4">
-                        {documents?.map((document) => (
-                            <p key={document._id}>
-                                {document.title}
-                            </p>
-                        ))}
-                    </div>
-                    <div
-                        onMouseDown={handleMouseDown}
-                        onClick={resetWidth}
-                        className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0" />
-                </aside>
-                <div
-                    ref={navbarRef}
-                    className={cn(
-                        "absolute top-0 z-[99999] left-60 w-[calc(100%-240px)]",
-                        isResetting && "transition-all ease-in-out duration-300",
-                        isMobile && "left-0 w-full"
-                    )}
+        <>
+            <aside ref={sidebarRef} className={cn(
+                "group/sidebar h-full bg-secondary overflow-y-auto relative flex w-60 flex-col z-[99999]",
+                isResetting && "transition-all ease-in-out duration-300",
+                isMobile && "w-0"
+            )}>
+                <div onClick={collapse} role="button" className={cn("h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition",
+                    isMobile && "opacity-100"
+                )}
                 >
-                    <nav className="bg-transparent px-3 py-2 w-full">
-                        {isCollapsed && <MenuIcon onClick={resetWidth} role="button" className="w-6 h-6 text-muted-foreground" />}
-                    </nav>
+                    <ChevronLeftIcon className="w-6 h-6" />
                 </div>
-            </>
-        )
-    };
+                <div>
+                    <UserItem />
+                    <Item
+                        label="Search"
+                        icon={Search}
+                        onClick={() => { }}
+                        isSearch
+                    />
+                    <Item
+                        label="Settings"
+                        icon={Settings}
+                        onClick={() => { }}
+                    />
+                    <Item
+                        onClick={handleCreate}
+                        label="New Page"
+                        icon={PlusCircle}
+                    />
+                </div>
+                <div className="mt-4">
+                    <DocumentList />
+                </div>
+                <div
+                    onMouseDown={handleMouseDown}
+                    onClick={resetWidth}
+                    className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0" />
+            </aside>
+            <div
+                ref={navbarRef}
+                className={cn(
+                    "absolute top-0 z-[99999] left-60 w-[calc(100%-240px)]",
+                    isResetting && "transition-all ease-in-out duration-300",
+                    isMobile && "left-0 w-full"
+                )}
+            >
+                <nav className="bg-transparent px-3 py-2 w-full">
+                    {isCollapsed && <MenuIcon onClick={resetWidth} role="button" className="w-6 h-6 text-muted-foreground" />}
+                </nav>
+            </div>
+        </>
+    )
+};
