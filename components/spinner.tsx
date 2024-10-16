@@ -19,11 +19,11 @@ const spinnerVariants = cva(
     }
 )
 
-interface SpinnerProps extends VariantProps<typeof spinnerVariants> {}
+// Use a type alias instead of an interface
+type SpinnerProps = VariantProps<typeof spinnerVariants>;
 
 export const Spinner = ({ size }: SpinnerProps) => {
     return (
         <Loader className={cn(spinnerVariants({ size }))} />
     )
 }
-
