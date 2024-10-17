@@ -11,11 +11,13 @@ import { toast } from "sonner";
 import DocumentList from "./Document-List";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { TrashBox } from "./Trash-Box";
+import { useSearch } from "@/hooks/use-search";
 
 
 
 
 export const Navigation = () => {
+    const search = useSearch();
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
     const create = useMutation(api.documents.create);
@@ -120,7 +122,7 @@ export const Navigation = () => {
                     <Item
                         label="Search"
                         icon={Search}
-                        onClick={() => { }}
+                        onClick={search.onOpen}
                         isSearch
                     />
                     <Item
