@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-providers";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
-
+import { ModelProvider } from "@/components/providers/model-provider";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -54,6 +54,7 @@ export default function RootLayout({
             storageKey="notion-theme"
           >
             <Toaster position="bottom-center" />
+            <ModelProvider />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>
