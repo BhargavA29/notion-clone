@@ -313,3 +313,34 @@ export const update = mutation({
         return document;
     },
 });
+
+export const removeIcon = mutation({
+    args: {
+        id: v.id("documents")
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+
+        if (!identity) {
+            throw new ConvexError("Unauthorized");
+        }
+
+        const userId = identity.subject;
+
+        const existingDocument = await ctx.db.get(args.id);
+
+        if (!existingDocument) {
+            throw new ConvexError("Document not found");
+        }
+
+        if (existingDocument.userId !== userId) {
+            throw new ConvexError("Unauthorized");
+        }
+
+        const document = await ctx.db.patch(args.id, {
+            icon: undefined
+        });
+
+        return document;
+    }
+})
