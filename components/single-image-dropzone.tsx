@@ -6,7 +6,6 @@ import * as React from 'react';
 import { useDropzone, type DropzoneOptions } from 'react-dropzone';
 import { twMerge } from 'tailwind-merge';
 import { Spinner } from './spinner';
-import Image from 'next/image';
 
 const variants = {
     base: 'relative rounded-md flex justify-center items-center flex-col cursor-pointer min-h-[150px] min-w-[200px] border border-dashed border-gray-400 dark:border-gray-300 transition-colors duration-200 ease-in-out',
@@ -18,6 +17,7 @@ const variants = {
     accept: 'border border-blue-500 bg-blue-500 bg-opacity-10',
     reject: 'border border-red-700 bg-red-700 bg-opacity-10',
 };
+
 
 type InputProps = {
     width?: number;
@@ -123,9 +123,9 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
         }, [fileRejections, dropzoneOptions]);
 
         return (
-            <div className='relative'>
+            <div className='relative '>
                 {disabled && (
-                    <div className='flex items-center justify-center absolute inset-y-0 w-full h-full bg-background/80 z-50'>
+                    <div className='flex items-center justify-center absolute inset-y-0 h-full w-full bg-background/80 z-50'>
                         <Spinner />
                     </div>
                 )}
@@ -143,18 +143,16 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
 
                     {imageUrl ? (
                         // Image Preview
-                        <Image
+                        <img
                             className="h-full w-full rounded-md object-cover"
                             src={imageUrl}
                             alt={acceptedFiles[0]?.name}
-                            layout="fill"
-                            objectFit="cover"
                         />
                     ) : (
                         // Upload Icon
                         <div className="flex flex-col items-center justify-center text-xs text-gray-400">
                             <UploadCloudIcon className="mb-2 h-7 w-7" />
-                            <div className="text-gray-400">Click or Drag and Drop</div>
+                            <div className="text-gray-400">Click or Drag & Drop</div>
                         </div>
                     )}
 
