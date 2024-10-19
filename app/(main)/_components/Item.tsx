@@ -41,10 +41,12 @@ export const Item = ({
     const create = useMutation(api.documents.create);
     const router = useRouter();
     const archive = useMutation(api.documents.archive);
+
     const onArchive = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation();
         if (!id) return;
         const promise = archive({ id });
+        promise.then(() => router.push("/documents"));
 
         toast.promise(promise, {
             loading: "Moving to trash...",
@@ -111,7 +113,7 @@ export const Item = ({
                 </div>
             ) : (
                 <Icon
-                    className="shrink-0 h-[18px] mr-2 text-muted-foreground" />
+                    className="shrink-0 h-[18px] w-[18px] mr-2 text-muted-foreground" />
             )}
 
             <span className="truncate">
