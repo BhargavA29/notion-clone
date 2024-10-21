@@ -104,6 +104,7 @@ export const create = mutation({
             userId: userId,
             isArchived: false,
             isPublished: false,
+            coverPosition: 50,
         });
 
         return document;
@@ -376,3 +377,35 @@ export const removeCoverImage = mutation({
         return document;
     }
 })
+
+export const updateCoverPosition = mutation({
+    args: {
+        id: v.id("documents"),
+        position: v.number(),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+
+        if (!identity) {
+            throw new ConvexError("Unauthorized");
+        }
+
+        const userId = identity.subject;
+
+        const existingDocument = await ctx.db.get(args.id);
+
+        if (!existingDocument) {
+            throw new ConvexError("Document not found");
+        }
+
+        if (existingDocument.userId !== userId) {
+            throw new ConvexError("Unauthorized");
+        }
+
+        const document = await ctx.db.patch(args.id, {
+            coverPosition: args.position,
+        });
+
+        return document;
+    }
+});
