@@ -43,7 +43,9 @@ export const SearchCommand = () => {
     }, [toggle]);
 
     const onSelect = (id: string) => {
-        router.push(`/documents/${id}`);
+        // Extract only the document ID from the value
+        const documentId = id.split('-')[0];
+        router.push(`/documents/${documentId}`);
         onClose();
     }
 
@@ -64,7 +66,7 @@ export const SearchCommand = () => {
                             key={document._id}
                             value={`${document._id}-${document.title}`}
                             title={document.title}
-                            onSelect={onSelect}
+                            onSelect={() => onSelect(`${document._id}-${document.title}`)}
                         >
                             {document.icon ? (
                                 <p className="mr-2 text-[18px]">{document.icon}</p>
@@ -81,4 +83,3 @@ export const SearchCommand = () => {
         </CommandDialog>
     )
 }
-
