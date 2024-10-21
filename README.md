@@ -2,7 +2,7 @@
 
 Clotion is a full-stack, real-time note-taking application inspired by Notion. Built with modern web technologies, it offers a seamless and collaborative note-taking experience.
 
-![Clotion App Screenshot](path_to_screenshot.png)
+![Clotion App Screenshot](publicScreenshot(317).png)
 
 ## Features
 
