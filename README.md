@@ -57,10 +57,6 @@ This app is configured for easy deployment on [Vercel](https://vercel.com/). Sim
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
 ## Acknowledgements
 
 - [Antonio's YouTube Tutorial](https://www.youtube.com/watch?v=0OaDyjB9Ib8) for the inspiration and guidance in building this application.
