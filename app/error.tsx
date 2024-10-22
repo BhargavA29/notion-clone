@@ -28,7 +28,7 @@ const Error = () => {
                 Something went wrong!
             </h2>
             <Button asChild>
-                <Link href="/documents">
+                <Link href="/">
                     Go Back</Link>
             </Button>
         </div>
